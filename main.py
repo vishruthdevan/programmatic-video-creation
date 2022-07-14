@@ -85,7 +85,7 @@ text2 = (
 )
 cur_x = 0.4 * 1920
 cur_y = 0.6 * 1080 + 65
-image_width = 0.5 * 1920
+image_width = text1.w
 screen_3 = cv2.imread("assets/back2.jpg")
 cv2.line(
     screen_3,
@@ -95,7 +95,45 @@ cv2.line(
 )
 screen_3 = ImageClip(cv2.cvtColor(screen_3, cv2.COLOR_RGB2BGR)).set_duration(5)
 screen_3 = CompositeVideoClip([screen_3, img1, text1, text2])
-screen_3.preview(fps=24)
 
-video = concatenate([screen_1, screen_2, screen_3], method="compose")
-# video.write_videofile("test.mp4", fps=24)
+
+img1 = (
+    ImageClip("assets/asset3.png")
+    .set_duration(5)
+    .set_position((0.7, "center"), relative=True)
+    .resize(0.55)
+)
+text1 = (
+    TextClip(
+        "Lorem ipsum dolor sit amet, consectetur \nadipiscing elit. Aliquam ultrices",
+        fontsize=60,
+        color="white",
+        align="west",
+    )
+    .set_duration(5)
+    .set_position((0.05, 0.2), relative=True)
+)
+text2 = (
+    TextClip(
+        "All new version", fontsize=40, bg_color="green", color="white", align="center"
+    )
+    .set_duration(5)
+    .set_position((0.55, 0.7), relative=True)
+)
+cur_x = 0.05 * 1920
+cur_y = 0.2 * 1080 + 65
+image_width = text1.w
+screen_4 = cv2.imread("assets/back2.jpg")
+cv2.line(
+    screen_4,
+    (int(cur_x), int(cur_y)),
+    (int(cur_x + image_width), int(cur_y)),
+    (250, 250, 250),
+)
+screen_4 = ImageClip(cv2.cvtColor(screen_4, cv2.COLOR_RGB2BGR)).set_duration(5)
+screen_4 = CompositeVideoClip([screen_4, img1, text1, text2])
+# screen_4.preview(fps=24)
+
+
+video = concatenate([screen_1, screen_2, screen_3, screen_4], method="compose")
+video.write_videofile("test.mp4", fps=24)
