@@ -1,3 +1,5 @@
+from asyncio.log import logger
+
 import cv2
 from moviepy.editor import *
 from moviepy.video.tools import drawing
@@ -136,4 +138,4 @@ screen_4 = CompositeVideoClip([screen_4, img1, text1, text2])
 
 
 video = concatenate([screen_1, screen_2, screen_3, screen_4], method="compose")
-video.write_videofile("test.mp4", fps=24)
+video.write_videofile("test.mp4", threads=12, fps=2, logger=None)
